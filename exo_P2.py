@@ -19,7 +19,7 @@ for i in range(51):
             link = a['href']
             links.append('https://books.toscrape.com/catalogue/' + link)
             
-with open('urls.text','w') as file
+with open('urls.txt','w') as file
         for link in links :
                 file.write(link + '\n')
 
