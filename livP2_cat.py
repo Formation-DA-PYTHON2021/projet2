@@ -19,7 +19,7 @@ with open('urls.csv', 'w') as file:
     for link in links:
         file.write(link + '\n')
 with open('urls.csv', 'r') as inf:
-    with open('catProd.csv', 'w', newline='',encoding='utf-8-sig') as outf:
+    with open('catProd.csv', 'w',encoding='utf-8-sig') as outf:
         outf.write('universal_product_code, title, price_including_tax, price_excluding_tax, number_available, product_description, category, review_rating, image_url\n')
         for row in inf:
             url = row.strip()
@@ -36,8 +36,7 @@ with open('urls.csv', 'r') as inf:
             rating = soup.find("p", attrs={'class': 'star-rating'}).get("class")[1]
             image = soup.find('img')['src'].replace('../../', 'https://books.toscrape.com/')
             # print(UPC,titre,price_in,price_ex,available,descrip,cat,rating,image)
-        #outf.write(titre + ',' + image + ',' + rating + ',' + available + ',' + cat + ',' + UPC + ',' + price_in + ',' + price_ex + ',' + '\n')
-            #+',' + ',' + price_in + ',' + price_ex + ',' + available + ',' + descrip + ',' + cat + ',' + rating + ',' + image + '\n']
+        #outf.write(UPC + ',' + titre + ',' + price_in + ',' + price_ex + ',' + available + ',' + descrip + ',' + cat + ',' + rating + ',' image + ',' + '\n')
         #outf.write(str(lien) + '\n')
             outf.write(descrip + '\n')
             # debloqué titre et decription reste insersion de l'url qui ne marche pas
