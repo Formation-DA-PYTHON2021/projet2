@@ -2,6 +2,7 @@ from typing import TextIO
 
 import requests
 from bs4 import BeautifulSoup
+import pandas as pd
 
 links = []
 url = 'https://books.toscrape.com/catalogue/category/books/travel_2'
@@ -38,6 +39,9 @@ with open('urls.csv', 'r') as inf:
             # print(UPC,titre,price_in,price_ex,available,descrip,cat,rating,image)
         #outf.write(UPC + ',' + titre + ',' + price_in + ',' + price_ex + ',' + available + ',' + descrip + ',' + cat + ',' + rating + ',' image + ',' + '\n')
         #outf.write(str(lien) + '\n')
-            outf.write(descrip + '\n')
+            # outf.write(descrip + '\n')
+            df = pd.DataFrame.from_dict({"Title": [titre],"price_including_tax":[price_in],"universal_product_code":[UPC],"price_excluding_tax":[price_ex],"number_available":[available],"product_description": [descrip],"category":[cat],"review_rating":[rating]," image_url": [image]})
+            print(df)
+            df.to_csv('Question2VF.csv',index=False)
             # debloqué titre et decription reste insersion de l'url qui ne marche pas
             # attention au virgule dans le texte doit trouver une solution
