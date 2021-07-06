@@ -17,8 +17,6 @@ with open('urls.csv', 'w') as file:
     for link in links:
         file.write(link + '\n')
 with open('urls.csv', 'r') as inf:
-    #with open('catProd.csv', 'w',encoding='utf-8-sig') as outf:
-    # outf.write('universal_product_code, title, price_including_tax, price_excluding_tax, number_available, product_description, category, review_rating, image_url\n')
             for row in inf:
                 url = row.strip()
                 reponse = requests.get(url)
@@ -34,7 +32,7 @@ with open('urls.csv', 'r') as inf:
                 rating = soup.find("p", attrs={'class': 'star-rating'}).get("class")[1]
                 image = soup.find('img')['src'].replace('../../', 'https://books.toscrape.com/')
                 df = pd.DataFrame.from_dict(
-                    {"Title": [titre], "price_including_tax": [price_in], "universal_product_code": [UPC],
+                    {"lien":[url],  "universal_product_code": [UPC], "Title": [titre], "price_including_tax": [price_in],
                     "price_excluding_tax": [price_ex], "number_available": [available], "product_description": [descrip],
                     "category": [cat], "review_rating": [rating], " image_url": [image]})
                 #print(df)
