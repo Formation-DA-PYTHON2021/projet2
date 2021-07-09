@@ -10,6 +10,7 @@ reponse = requests.get(url)
 
 if reponse.ok:
         soup = BeautifulSoup(reponse.text, 'html.parser')
-        l = soup.find('aside')
-        cat = l.find_all('a')
-        print(cat)
+        categories = soup.find('ul', attrs={'class': 'nav-list'}).find('li').find('ul').findAll('li')
+        for category in categories:
+            categories[category.text.strip()] = 'http://books.toscrape.com'/category).find('a')['href'].replace('/index.html', '')}"
+        print(categories)
