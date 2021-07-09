@@ -49,6 +49,6 @@ with open('urls.csv', 'r') as inf:
                 "price_excluding_tax": price_ex, "number_available": available, "product_description": descrip,
                 "category": cat, "review_rating": rating, " image_url": image})
             print(df)
-            df.to_csv('Question2VF.csv', index=False)
+            df.to_csv('Livre.csv', index=False)
 #encore un problème dasn la console la boucle est prise en compte lorsqu'on vérifie avec print(df) les 11 lignes sortent.
-#mais il n'y a pas les 11 lignes dans le fichier Question2VF
+#mais il n'y a pas les 11 lignes dans le fichier Livre
