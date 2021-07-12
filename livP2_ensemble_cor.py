@@ -39,10 +39,19 @@ with open('url_cat.csv', 'r') as fichier :
             if reponse_cat.ok:
                 soup = BeautifulSoup(reponse_cat.text, 'html.parser')
                 articles = soup.findAll('article')
-                for article in articles:
-                    a = article.find('a')
-                    link = a['href'].replace('../../../', '')
-                    links.append('https://books.toscrape.com/catalogue/' + link)
+                number_of_pages = soup.find(
+                'li', attrs={'class': 'current'})
+                if number_of_pages is not None:
+                    number_of_pages = int(number_of_pages.text.split('of ')[1])
+                    # print(url_cat,number_of_pages)
+                
+                    for npage in range(1,number_of_pages):
+                        for article in articles:
+                            
+                            a = article.find('a')
+                            link = a['href'].replace('../../../', '')
+                            links.append('https://books.toscrape.com/catalogue/' + link)
+                        # print(links)
 
 with open('urls.csv', 'w') as file:
     for link in links:
