@@ -45,7 +45,7 @@ with open('url_cat.csv', 'r') as fichier :
                     # print(url_cat,number_of_pages)
                 
                     for npage in range(1,number_of_pages+1):
-                        print(url_cat)
+                        # print(url_cat)
                         url_cat2 = url_cat+"/page-"+str(npage) + '.html'
                         reponse_cat2 = requests.get(url_cat2)
                         soup = BeautifulSoup(reponse_cat2.text, 'html.parser')
@@ -55,7 +55,7 @@ with open('url_cat.csv', 'r') as fichier :
                             a = article.find('a')
                             link = a['href'].replace('../../../', '')
                             links.append('https://books.toscrape.com/catalogue/' + link)
-                        print(url_cat2,"===========================",npage,links)
+                        # print(url_cat2,"===========================",npage,links)
 
 with open('urls.csv', 'w') as file:
     for link in links:
