@@ -39,10 +39,31 @@ with open('url_cat.csv', 'r') as fichier :
             if reponse_cat.ok:
                 soup = BeautifulSoup(reponse_cat.text, 'html.parser')
                 articles = soup.findAll('article')
-                for article in articles:
-                    a = article.find('a')
-                    link = a['href'].replace('../../../', '')
-                    links.append('https://books.toscrape.com/catalogue/' + link)
+                number_of_pages = soup.find(
+                'li', attrs={'class': 'current'})
+                if number_of_pages is not None:
+                    number_of_pages = int(number_of_pages.text.split('of ')[1])
+                    # print(url_cat,number_of_pages)
+                
+                    for npage in range(1,number_of_pages+1):
+                        # print(url_cat)
+                        url_cat2 = url_cat+"/page-"+str(npage) + '.html'
+                        reponse_cat2 = requests.get(url_cat2)
+                        soup = BeautifulSoup(reponse_cat2.text, 'html.parser')
+                        # articles = soup.findAll('article')
+                        for article in articles:
+                            
+                            a = article.find('a')
+                            link = a['href'].replace('../../../', '')
+                            links.append('https://books.toscrape.com/catalogue/' + link)
+                        # print(url_cat2,"===========================",npage,links)
+                else:
+                    
+                    for article in articles:
+                        
+                        a = article.find('a')
+                        link = a['href'].replace('../../../', '')
+                        links.append('https://books.toscrape.com/catalogue/' + link)
 
 with open('urls.csv', 'w') as file:
     for link in links:
@@ -73,3 +94,38 @@ with open('urls.csv', 'r') as inf:
             df.to_csv('Livre.csv', index=False)
 
 
+
+##################################################### LES ETAPES DU SCRIPT #######################################
+##################################################################################################################
+
+"""
+On organisera avec les fonctions.
+
+base_url = 'http://books.toscrape.com'
+Etape 1
+Ecrire une fonction category(base_url) et qui retourne les liens des categories dans un dictionnaire.
+Ex: return{"travel":'http://books.toscrape.com/travel......'}
+
+Etape 2
+Ecrire une fonction pages_livre(url_category) qui prend en parametre l'url d'une categorie
+Et qui retourne l'url de tous les livres de cette categorie sous forme de list.
+Ex: return [http://books.toscrape.com/travel/..../,http://books.toscrape.com/travel/..../] 
+
+Etape 3
+Ecrire fonction Write_image(lien_image_livre, nom_categorie) qui utilise path et wget pour classer
+en fonction des parametres "lien_image_livre, nom_categorie"
+
+Etape 4
+Ecrire une fonction livre(lien_un_livre) qui recupere les infos du livre et appelle la fonction 
+write_image(lien_image_livre, nom_categorie) et retourne les infos du livre dans un dictionnaire.
+
+Etape 5
+Ecrire une fonction write_csv(infos_livre, nom categorie) qui ouvre un fichier csv avec pour nom 
+la categorie passé en parametre, puis enregistre les infos "infos_livre" recu dans le csv.
+
+Etape 6
+Organiser toutes les fonctions dans le main du fichier.
+if __main__=='__main__':
+    les fonctions ici ..............
+
+"""
