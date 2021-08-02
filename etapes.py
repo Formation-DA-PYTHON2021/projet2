@@ -97,13 +97,12 @@ def livre(lien_un_livre):
 #la categorie passé en parametre, puis enregistre les infos "infos_livre" recu dans le csv.
 
 
-
 def write_csv(infos_livre,category):
     fieldnames = ['product_page_url', 'universal_product_code', 'title, price_including_tax', 'price_excluding_tax',
                   'number_available','product_description', 'category', 'review_rating', 'image_url']
-    rows = livre(lien_un_livre)
+    rows = livre()
     with open(f'{category}.csv', 'w', encoding='UTF8', newline='') as file:
-        writer = cvs.DictWriter(f,fieldnames=fieldnames)
+        writer = f'{category}.csv'.DictWriter(file, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(rows)
 
