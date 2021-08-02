@@ -98,10 +98,14 @@ def livre(lien_un_livre):
 
 
 
-def write_csv(infos_livre, mystery):
-    with open('mystery.csv', 'w') as file:
-        for infos_livre in lien_sources:
-                file.write(infos_livre + '\n')
+def write_csv(infos_livre,category):
+    fieldnames = ['product_page_url', 'universal_product_code', 'title, price_including_tax', 'price_excluding_tax',
+                  'number_available','product_description', 'category', 'review_rating', 'image_url']
+    rows = livre(lien_un_livre)
+    with open(f'{category}.csv', 'w', encoding='UTF8', newline='') as file:
+        writer = cvs.DictWriter(f,fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(rows)
 
 
 #Etape 6
