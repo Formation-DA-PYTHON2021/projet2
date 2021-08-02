@@ -67,7 +67,7 @@ def info_from_category(liens):
         download_image(livre_info['image_url'], livre_info['category']) 
     return infos
 
-#Etape 4
+#Etape 4 
 #Ecrire une fonction livre(lien_un_livre) qui recupere les infos du livre et appelle la fonction
 #write_image(lien_image_livre, nom_categorie) et retourne les infos du livre dans un dictionnaire.
 
