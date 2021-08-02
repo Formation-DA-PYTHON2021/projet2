@@ -101,12 +101,14 @@ infos_livre = {"lien": page_url, "universal_product_code": UPC, "Title": titre, 
 
 lien_sources = 'https://books.toscrape.com/catalogue/sharp-objects_997/index.html'
 
-def write_csv(infos_livre, mystery):
-    with open('mystery.csv', 'w') as file:
-        file.write('product_page_url, universal_product_code, title, price_including_tax, price_excluding_tax,'
-                   'number_available, product_description, category, review_rating, image_url\n')
-        for infos_livre in lien_sources:
-                file.write(infos_livre + '\n')
+def write_csv(infos_livre,category):
+    fieldnames = ['product_page_url', 'universal_product_code', 'title, price_including_tax', 'price_excluding_tax',
+                  'number_available','product_description', 'category', 'review_rating', 'image_url']
+    rows = livre()
+    with open(f'{category}.csv', 'w', encoding='UTF8', newline='') as file:
+        writer = f'{category}.csv'.DictWriter(file, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(rows)
 
 
 #Etape 6
