@@ -103,6 +103,8 @@ lien_sources = 'https://books.toscrape.com/catalogue/sharp-objects_997/index.htm
 
 def write_csv(infos_livre, mystery):
     with open('mystery.csv', 'w') as file:
+        file.write('product_page_url, universal_product_code, title, price_including_tax, price_excluding_tax,'
+                   'number_available, product_description, category, review_rating, image_url\n')
         for infos_livre in lien_sources:
                 file.write(infos_livre + '\n')
 
