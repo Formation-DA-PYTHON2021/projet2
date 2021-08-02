@@ -6,9 +6,19 @@ from bs4 import BeautifulSoup
 import wget
 from pathlib import Path
 import pandas as pd
+import csv
 
 
-
+titres =['product_page_url',
+            'universal_product_code',
+            'title',
+            'price_including_tax',
+            'price_excluding_tax',
+            'number_available',
+            'product_description',
+            'category',
+            'review_rating',
+            'image_url']
 #Etape 1:
 base_url = 'https://books.toscrape.com'
 reponse = requests.get(base_url)
@@ -102,10 +112,20 @@ def livre(lien_un_livre):
 
 def write_csv(infos_livre, category):
     with open(f'{category}.csv', 'w', newline='', encoding='iso-8859-1') as file:
-        file.write('product_page_url, universal_product_code, title, price_including_tax, price_excluding_tax,'
-                   'number_available, product_description, category, review_rating, image_url\n')
+        write = csv.DictWriter(file, fieldnames=titres)
+        write.writeheader()
+        
         for infos_livr in infos_livre:
-                file.write(infos_livr + '\n')
+                write.writerow({'product_page_url': infos_livr['lien'],
+                             'universal_product_code': infos_livr['universal_product_code'],
+                             'title': infos_livr['Title'],
+                             'price_including_tax': infos_livr['price_including_tax'].strip(),
+                             'price_excluding_tax': infos_livr['price_excluding_tax'].strip(),
+                             'number_available': infos_livr['number_available'].strip(),
+                             'product_description': str(infos_livr['product_description']),
+                             'category': infos_livr['category'].strip(),
+                             'review_rating': infos_livr['review_rating'].strip(),
+                             'image_url': infos_livr['image_url']})
 
 
 #Etape 6
