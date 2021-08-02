@@ -131,7 +131,7 @@ def write_csv(infos_livre, category):
 #Etape 6
 #Organiser toutes les fonctions dans le main du fichier.
 if __name__ == '__main__':
-    categories = category_links(base_url)
+    categories = category_links(base_url) 
     for categorie in categories.keys():
         links = pages_livre(categories[categorie])
         info = info_from_category(links)
