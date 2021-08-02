@@ -25,13 +25,11 @@ reponse = requests.get(base_url)
 
 def category_links(base_url):
     if reponse.ok:
-        liensCat = {}
+        liensCat = []
         soup = BeautifulSoup(reponse.text, 'html.parser')
         for category in soup.find('ul', class_='nav nav-list').find('li').find('ul').find_all('li'):
             categories = category.a.get('href').replace('/index.html', '')
-            # liensCat.append('https://books.toscrape.com/' + categories)
-            titre = category.text.strip()
-            liensCat[titre]='https://books.toscrape.com/' + categories
+            liensCat.append('https://books.toscrape.com/' + categories)
     return liensCat
 
 # Etape 2
@@ -76,10 +74,10 @@ def info_from_category(liens):
     for link in liens:
         livre_info = livre(link)
         infos.append(livre_info)
-        download_image(livre_info['image_url'], livre_info['category']) 
+        download_image(livre_info['image_url'], livre_info['category'])
     return infos
 
-#Etape 4 
+#Etape 4
 #Ecrire une fonction livre(lien_un_livre) qui recupere les infos du livre et appelle la fonction
 #write_image(lien_image_livre, nom_categorie) et retourne les infos du livre dans un dictionnaire.
 
@@ -110,29 +108,37 @@ def livre(lien_un_livre):
 
 
 
-def write_csv(infos_livre, category):
-    with open(f'{category}.csv', 'w', newline='', encoding='iso-8859-1') as file:
-        write = csv.DictWriter(file, fieldnames=titres)
-        write.writeheader()
+# def write_csv(infos_livre, category):
+#     with open(f'{category}.csv', 'w', newline='', encoding='iso-8859-1') as file:
+#         write = csv.DictWriter(file, fieldnames=titres)
+#         write.writeheader()
         
-        for infos_livr in infos_livre:
-                write.writerow({'product_page_url': infos_livr['lien'],
-                             'universal_product_code': infos_livr['universal_product_code'],
-                             'title': infos_livr['Title'],
-                             'price_including_tax': infos_livr['price_including_tax'].strip(),
-                             'price_excluding_tax': infos_livr['price_excluding_tax'].strip(),
-                             'number_available': infos_livr['number_available'].strip(),
-                             'product_description': str(infos_livr['product_description']),
-                             'category': infos_livr['category'].strip(),
-                             'review_rating': infos_livr['review_rating'].strip(),
-                             'image_url': infos_livr['image_url']})
+#         for infos_livr in infos_livre:
+#                 write.writerow({'product_page_url': infos_livr['lien'],
+#                              'universal_product_code': infos_livr['universal_product_code'],
+#                              'title': infos_livr['Title'],
+#                              'price_including_tax': infos_livr['price_including_tax'].strip(),
+#                              'price_excluding_tax': infos_livr['price_excluding_tax'].strip(),
+#                              'number_available': infos_livr['number_available'].strip(),
+#                              'product_description': str(infos_livr['product_description']),
+#                              'category': infos_livr['category'].strip(),
+#                              'review_rating': infos_livr['review_rating'].strip(),
+#                              'image_url': infos_livr['image_url']})
+def write_csv(infos_livre,category):
+    fieldnames = ['product_page_url', 'universal_product_code', 'title, price_including_tax', 'price_excluding_tax',
+                  'number_available','product_description', 'category', 'review_rating', 'image_url']
+    rows = livre()
+    with open(f'{category}.csv', 'w', encoding='UTF8', newline='') as file:
+        writer = f'{category}.csv'.DictWriter(file, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(rows)
 
 
 #Etape 6
 #Organiser toutes les fonctions dans le main du fichier.
 if __name__ == '__main__':
     categories = category_links(base_url)
-    for categorie in categories.keys():
-        links = pages_livre(categories[categorie])
+    for categorie in categories:
+        links = pages_livre(categorie)
         info = info_from_category(links)
-        write_csv(info, categorie)
+        #write_csv(info, categorie)
