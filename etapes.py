@@ -64,7 +64,7 @@ def info_from_category(liens):
     for link in liens:
         livre_info = livre(link)
         infos.append(livre_info)
-        download_image(livre_info['image_url'], livre_info['category'])
+        download_image(livre_info['image_url'], livre_info['category']) 
     return infos
 
 #Etape 4
