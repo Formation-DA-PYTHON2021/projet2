@@ -13,3 +13,4 @@ soupsieve==2.2.1
 urllib3==1.26.6
 webencodings==0.5.1
 wget==3.2
+Pillow==8.3.1

@@ -25,11 +25,13 @@ reponse = requests.get(base_url)
 
 def category_links(base_url):
     if reponse.ok:
-        liensCat = []
+        liensCat = {}
         soup = BeautifulSoup(reponse.text, 'html.parser')
         for category in soup.find('ul', class_='nav nav-list').find('li').find('ul').find_all('li'):
             categories = category.a.get('href').replace('/index.html', '')
-            liensCat.append('https://books.toscrape.com/' + categories)
+            # liensCat.append('https://books.toscrape.com/' + categories)
+            titre = category.text.strip()
+            liensCat[titre]='https://books.toscrape.com/' + categories
     return liensCat
 
 # Etape 2
@@ -138,7 +140,7 @@ def write_csv(infos_livre,category):
 #Organiser toutes les fonctions dans le main du fichier.
 if __name__ == '__main__':
     categories = category_links(base_url)
-    for categorie in categories:
-        links = pages_livre(categorie)
+    for categorie in categories.keys():
+        links = pages_livre(categories[categorie])
         info = info_from_category(links)
-        #write_csv(info, categorie)
+        write_csv(info, categorie)

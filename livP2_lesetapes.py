@@ -74,8 +74,11 @@ def download_image(image_url, category):
 def info_from_category(liens):
     infos = []
     for link in liens:
+        # print("Le lien livre ===============>", link)
         livre_info = livre(link)
+        # print("Le livre ===============>", livre_info)
         infos.append(livre_info)
+        # print("La description ===============>", infos)
         download_image(livre_info['image_url'], livre_info['category']) 
     return infos
 
@@ -131,8 +134,11 @@ def write_csv(infos_livre, category):
 #Etape 6
 #Organiser toutes les fonctions dans le main du fichier.
 if __name__ == '__main__':
+    ## 
     categories = category_links(base_url) 
     for categorie in categories.keys():
+        print("categories[categorie] ====>>>", categories[categorie])
         links = pages_livre(categories[categorie])
         info = info_from_category(links)
-        write_csv(info, categorie)
+        
+        # write_csv(info, categorie)
