@@ -5,7 +5,6 @@ import requests
 from bs4 import BeautifulSoup
 import wget
 from pathlib import Path
-import pandas as pd
 import csv
 
 
@@ -20,6 +19,8 @@ titres =['product_page_url',
             'review_rating',
             'image_url']
 #Etape 1:
+# Ecrire une fonction qui récupere les pages des categories.
+
 base_url = 'https://books.toscrape.com'
 reponse = requests.get(base_url)
 
@@ -35,7 +36,7 @@ def category_links(base_url):
     return liensCat
 
 # Etape 2
-# categorie = "https://books.toscrape.com/catalogue/category/books/travel_2"
+# Ecrire une fonction pages_livre qui recupere toutes les pages  de chaque categories.
 def pages_livre(categorie):
     reponse_cat = requests.get(categorie)
     if reponse_cat.ok:
