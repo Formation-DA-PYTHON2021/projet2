@@ -19,7 +19,7 @@ titres =['product_page_url',
             'review_rating',
             'image_url']
 #Etape 1:
-# Ecrire une fonction qui récupere les pages des categories.
+# Ecrire une fonction  category_links qui récupere les pages des categories.
 
 base_url = 'https://books.toscrape.com'
 reponse = requests.get(base_url)
@@ -30,7 +30,6 @@ def category_links(base_url):
         soup = BeautifulSoup(reponse.text, 'html.parser')
         for category in soup.find('ul', class_='nav nav-list').find('li').find('ul').find_all('li'):
             categories = category.a.get('href').replace('/index.html', '')
-            # liensCat.append('https://books.toscrape.com/' + categories)
             titre = category.text.strip()
             liensCat[titre]='https://books.toscrape.com/' + categories
     return liensCat
@@ -102,8 +101,6 @@ def livre(lien_un_livre):
     return {"lien": page_url, "universal_product_code": UPC, "Title": titre, "price_including_tax": price_in,
          "price_excluding_tax": price_ex, "number_available": available, "product_description": descrip,
          "category": cat, "review_rating": rating, "image_url": image}
-#attention sur la présentation le texte apparait avec encore des crochés à voir ou ça ne passe pas le .text
-# plus ajout de l'étape 3 !!
 
 #Etape 5
 #Ecrire une fonction write_csv(infos_livre, nom categorie) qui ouvre un fichier csv avec pour nom
