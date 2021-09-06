@@ -44,12 +44,12 @@ Devoir récupérer les fichiers du repository projet2 suivants :
 - requirements.txt (definitif)
 
 Marche à suivre : 
-1/ Récupération du fichier requirements.txt (créer pour connaitre l'ensemble des packtages necessaire):
-2/ Créer un environnement virutel de travail : py - m venv venv
-3/ Avec la console de votre terminal se rendre sur votre nouvel environement avec la commande 'cd';
-4/ Activez l'environnement : source venv/Scripts/activate
-5/ Instaler les packtages necessaire : pip install -r requirements.txt
-6/ lancement du programme : dans la console inscrivez : python livP2_lesetapes.py (ou selon la version de python : py livP2_lesetapes.py)
+- Récupération du fichier requirements.txt (créer pour connaitre l'ensemble des packtages necessaire):
+- Créer un environnement virutel de travail : py - m venv venv
+- Avec la console de votre terminal se rendre sur votre nouvel environement avec la commande 'cd';
+- Activez l'environnement : source venv/Scripts/activate
+- Instaler les packtages necessaire : pip install -r requirements.txt
+- lancement du programme : dans la console inscrivez : python livP2_lesetapes.py (ou selon la version de python : py livP2_lesetapes.py)
 
 
 ## L'état du projet
